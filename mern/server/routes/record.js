@@ -40,8 +40,12 @@ recordRoutes.route("/record/add").post(function (req, res) {
     person_position: req.body.person_position,
     person_level: req.body.person_level,
   };
-  db_connect.collection("records").insertOne(myobj, function (err, res) {
+  db_connect.collection("records").insertOne(myobj, function (err, result) {
     if (err) throw err;
+    res.json({
+      message:"Sucessfully created Records",
+      result: result
+    });
   });
 });
 
@@ -58,9 +62,13 @@ recordRoutes.route("/update/:id").post(function (req, res) {
   };
   db_connect
     .collection("records")
-    .updateOne(myquery, newvalues, function (err, res) {
+    .updateOne(myquery, newvalues, function (err, result) {
       if (err) throw err;
       console.log("1 document updated");
+      res.json({
+        message:"Sucessfully created Records",
+        result: result
+      });
     });
 });
 
@@ -68,8 +76,12 @@ recordRoutes.route("/update/:id").post(function (req, res) {
 recordRoutes.route("/:id").delete((req, res) => {
   let db_connect = dbo.getDb("employees");
   var myquery = { id: req.body.id };
-  db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+  db_connect.collection("records").deleteOne(myquery, function (err, result) {
     if (err) throw err;
+    res.json({
+      message:"Sucessfully created Records",
+      result: result
+    });
     console.log("1 document deleted");
   });
 });
