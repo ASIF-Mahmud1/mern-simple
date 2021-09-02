@@ -23,23 +23,26 @@ const UserSchema = new mongoose.Schema({
     default: Date.now
   },
 
-  follower:[ {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-	}],
+  follower: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    default: []
+  },
 
-  following:[ {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-	}]
+  following: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    default: []
+  },
   
 })
 
 
  
-
-
-
 
 
 export default mongoose.model('User', UserSchema)
