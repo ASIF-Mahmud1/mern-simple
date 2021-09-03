@@ -37,8 +37,38 @@ const listByUserId= async (req, res, next)=>{
     }
 }
 
+const removeTweet = async (req, res, next)=>{
+    try {
+       const tweetID= req.params.tweetID 
+       const userID= req.body.userID
+       const result = await TweetModel.findById({ _id: tweetID})
+       if(!result)
+       {
+        res.json({message:"Tweet not found",result})
+       }
+       else 
+       {
+            if( result.userID===userID)    //  User  authorized to delete 
+            {
+                 await result.remove();
+                 res.json({message:"Tweet deleted succesfully !",result})
+            }
+            else                          // User not authorized to delete the tweet
+            {
+                 res.json({message:"User not Authorized to delete"})
+            }
+        
+       }
+   
+    } catch (error) {
+        console.error(error)
+        res.json(error)
+    }
+}
+
 module.exports={
     create,
     list,
-    listByUserId
+    listByUserId,
+    removeTweet
 }
