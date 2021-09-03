@@ -1,47 +1,11 @@
 const express = require("express")
 const userRoutes = express.Router()
-const dbo = require("../db/conn");
-let UserModel = require('../model/user.model')
+const userCtrl =require("../controller/user.controller")
 
-// POST: create user
-userRoutes.route("/user").post(function (req, res) {
-  
-    let user = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-    };
-    let newUser = new UserModel(user)
+userRoutes.route("/user").post(userCtrl.create)
+userRoutes.route("/user").get(userCtrl.list)
 
-    newUser.save()
-    .then(doc => {
-      console.log(doc)
-      res.json({
-       message:"Sucessfully created user !",
-       result: doc
-     });
-    })
-    .catch(err => {
-      console.error(err)
-      res.json({err})
-    })
-
-  });
-
-  // GET: list all users
-  userRoutes.route("/user").get(function (req, res) {
-  UserModel
-  .find({
-     // search query
-  })
-  .then(doc => {
-    console.log(doc)
-    res.json({doc})
-  })
-  .catch(err => {
-    console.error(err)
-    res.json({err})
-  })
-  });
+// POST: create user 
+// GET: list all users
 
   module.exports= userRoutes
