@@ -26,7 +26,19 @@ const list= async (req, res, next)=>{
     }
 }
 
+const listByUserId= async (req, res, next)=>{
+    try {
+       const userID= req.params.userID 
+       const result = await TweetModel.find({userID:userID})
+        res.json(result)
+    } catch (error) {
+        console.error(error)
+        res.error(error)
+    }
+}
+
 module.exports={
     create,
-    list
+    list,
+    listByUserId
 }
