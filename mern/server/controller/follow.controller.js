@@ -18,7 +18,9 @@ const create= async (req, res, next)=>{
 
 const list= async (req, res, next)=>{
     try {
-       const result = await Follow.find({})
+       const result = await Follow.find({}).select('_id follower following')
+       .populate( { path: 'follower', select: 'name email' })
+       .populate( { path: 'following', select: 'name email' })
         res.json(result)
     } catch (error) {
         console.error(error)
