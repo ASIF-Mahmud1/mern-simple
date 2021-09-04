@@ -7,6 +7,7 @@ app.use(cors());
 app.use(express.json());
 app.use(require("./routes/user.route"))
 app.use(require("./routes/tweet.route"))
+app.use(require("./routes/follow.route"))
 // get driver connection
 const dbo = require("./db/conn");
 
