@@ -29,7 +29,8 @@ const list= async (req, res, next)=>{
 const listFollowers= async (req, res, next)=>{
     try {
        const userID= req.params.userID 
-       const result = await Follow.find({following:userID}).populate('follower')
+       const result = await Follow.find({following:userID})
+       .populate( { path: 'follower', select: 'name email' })
         res.json(result)
     } catch (error) {
         console.error(error)
@@ -40,7 +41,9 @@ const listFollowers= async (req, res, next)=>{
 const listFollowing= async (req, res, next)=>{
     try {
        const userID= req.params.userID 
-       const result = await Follow.find({follower:userID}).populate('following')
+       const result = await Follow.find({follower:userID}).select('_id follower following')
+       .populate( { path: 'follower', select: 'name email' })
+       .populate( { path: 'following', select: 'name email' })
         res.json(result)
     } catch (error) {
         console.error(error)
