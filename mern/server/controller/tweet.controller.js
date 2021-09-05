@@ -82,11 +82,29 @@ const likeTweet= async (req, res, next)=>{
     }
 }
 
+const unlikeTweet= async (req, res, next)=>{
+    try {
+       const tweetID= req.body.tweetID 
+       const userID= req.body.userID
+       const result = await TweetModel.findOneAndUpdate(
+           {_id:tweetID},
+           { $pull: { 'likes': userID } },
+           { new: true }
+           )
+           .populate( { path: 'likes', select: 'name email' })
+        res.json(result)
+    } catch (error) {
+        console.error(error)
+        res.error(error)
+    }
+}
+
 
 module.exports={
     create,
     list,
     listByUserId,
     removeTweet,
-    likeTweet
+    likeTweet,
+    unlikeTweet
 }
