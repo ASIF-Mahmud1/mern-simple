@@ -27,7 +27,10 @@ export default class RecordList extends Component {
   constructor(props) {
     super(props);
     this.deleteRecord = this.deleteRecord.bind(this);
-    this.state = { records: [] };
+    this.state = {
+       records: [],
+       tweet:""
+       };
   }
 
   // This method will get the data from the database.
@@ -53,15 +56,25 @@ export default class RecordList extends Component {
     });
   }
 
+  handleTweetInput=(e)=>{
+    this.setState({tweet: e.target.value})
+  }
+
+  handlePost=()=>{
+    alert(this.state.tweet)
+  }
+
   // This method will map out the users on the table
   recordList() {
     return this.state.records.map((currentrecord) => {
       return (
-        <Record
-          record={currentrecord}
-          deleteRecord={this.deleteRecord}
-          key={currentrecord._id}
-        />
+        <>
+          <Record
+            record={currentrecord}
+            deleteRecord={this.deleteRecord}
+            key={currentrecord._id}
+          />
+       </> 
       );
     });
   }
@@ -70,7 +83,13 @@ export default class RecordList extends Component {
   render() {
     return (
       <div>
-        <h3>Record List</h3>
+        <h3>Tweet List</h3>
+        <table className="table table-striped" style={{ marginTop: 20 }}>
+          <tr>
+              <td><input value={this.state.tweet} onChange={this.handleTweetInput} placeholder={"Whats in your mind?"}/> </td>
+              <td><buton onClick={this.handlePost}  className="btn btn-primary"><div>Post</div></buton></td>
+         </tr>
+        </table>
         <table className="table table-striped" style={{ marginTop: 20 }}>
           <thead>
             <tr>
