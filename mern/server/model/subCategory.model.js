@@ -13,6 +13,10 @@ const SubCategorySchema= new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Blog',
 	} ],
+
+	summary:{
+		type: String,
+	 },
    
 	
 })
