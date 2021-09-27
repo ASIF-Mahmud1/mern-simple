@@ -16,10 +16,15 @@ const create= async (req, res, next)=>{
 const list= async (req, res, next)=>{
     try {
        const result = await Category.find({})
+      // .populate("subCategory")
+       .populate({
+           path:'subCategory',
+           populate: { path: 'blogs',select:"_id title " }
+       }).exec()
        res.json(result)
     } catch (error) {
         console.error(error)
-        res.error(error)
+        res.json(error)
     }
 }
 
