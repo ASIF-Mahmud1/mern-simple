@@ -23,7 +23,22 @@ const list= async (req, res, next)=>{
     }
 }
 
+const addSummaryField= async(req, res)=>{
+    try {
+     const response = await SubCategory.updateMany({}, { summary: "Give a short description about the  sub category" }); // Note it is used for experiment only
+     return res.json(response)
+    } catch (error) {
+    
+      return res.status(400).json({
+        error: error
+      })
+    }
+  
+ 
+  }
+
 module.exports={
     create,
-    list
+    list,
+    addSummaryField
 }
