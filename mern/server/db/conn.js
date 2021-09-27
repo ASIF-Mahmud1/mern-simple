@@ -9,7 +9,7 @@ class Database {
   }
   
 _connect() {
-     mongoose.connect(mongoDBUri)
+     mongoose.connect("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
        .then(() => {
          console.log('Database connection successful')
        })

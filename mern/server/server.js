@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(require("./routes/user.route"))
 app.use(require("./routes/tweet.route"))
 app.use(require("./routes/follow.route"))
+app.use(require("./routes/blog.route"))
 // get driver connection
 const dbo = require("./db/conn");
 
